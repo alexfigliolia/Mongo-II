@@ -14,11 +14,12 @@ server.use(bodyParser.json());
 server.get('/accepted-answer/:soID', (req, res) => {
   const { soID } = req.params;
   Post.find({ soID })
-    .exec((err, qu) => {
+    .select('acceptedAnswerID')
+    .exec((err, acID) => {
       if (err) {
         res.status(STATUS_USER_ERROR).json({ 'something went wrong': err });
       } else {
-        Post.find({ acceptedAnswerID: qu.acceptedAnswerID })
+        Post.find({ soID: acID })
           .exec((err2, ans) => {
             if (err2) {
               res.status(STATUS_USER_ERROR).json({ 'something went wrong': err2 });
