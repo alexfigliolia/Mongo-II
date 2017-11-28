@@ -38,6 +38,4 @@ const populate = () => {
     });
 };
 
-populate();
-
 module.exports = { readPosts, populate };
